@@ -23,7 +23,7 @@ export default {
     CurrentDay,
   },
   setup() {
-    // State variables that stores all the data
+    //Data is assigned all the information from callWeather function. Which holds all the data.
     const data = callWeather();
     return {
       data,

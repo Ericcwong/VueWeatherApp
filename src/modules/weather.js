@@ -2,7 +2,13 @@ import {
     reactive,
 } from "vue";
 
+//exports whole function as callWeather. If you need to call it for other parts, in 
+// setup(){
+//  const (whatever you call it) = callWeather();
+//  return { whatever you call it}
+// }
 export const callWeather = () => {
+    // State variables that stores all the data
     const state = reactive({
         apiKey: "c0d97a019ea859a14447316fcc3b3bce",
         currentDayUrlBase: "https://api.openweathermap.org/data/2.5/weather?q=",
