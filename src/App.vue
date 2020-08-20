@@ -1,13 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <input type="text" v-model="state.query" @keyup.enter="weatherSearch" class="field" />
-  <p>{{state.query}}</p>
-  <CurrentDay :currentDayData="state.weather" />
+  <div class="container">
+    <div class="SearchBox">
+      <img alt="Vue logo" src="./assets/logo.png" />
+      <br />
+      <input type="text" v-model="data.state.query" @keyup.enter="data.weatherSearch" class="field" />
+      <p>{{data.state.query}}</p>
+    </div>
+    <div class="currentDay">
+      <CurrentDay :currentDayData="data.state.currentWeather" />
+    </div>
+    <div class="fiveDay"></div>
+  </div>
 </template>
 
 <script>
-import CurrentDay from "./components/CurrentDay.vue";
 import { reactive } from "vue";
+import { useWeather } from "./modules/weather";
+import CurrentDay from "./components/CurrentDay.vue";
 export default {
   name: "App",
   components: {
@@ -15,72 +24,32 @@ export default {
   },
   setup() {
     // State variables that stores all the data
-    const state = reactive({
-      apiKey: "c0d97a019ea859a14447316fcc3b3bce",
-      urlBase: "https://api.openweathermap.org/data/2.5/weather?q=",
-      query: "",
-      weather: {},
-    });
-    // API call
-    function weatherSearch(e) {
-      if (e.key == "Enter") {
-        fetch(
-          `${state.urlBase}${state.query}&units=imperial&appid=${state.apiKey}`
-        )
-          .then((res) => {
-            console.log(res);
-            return res.json();
-          })
-          .then((results) => {
-            state.weather = results;
-            console.log(state.weather);
-          });
-      }
-    }
-    //Setting current dates to each day
-    function getCurrentDate() {
-      let d = new Date();
-      let months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
-      let days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ];
-      let day = days[d.getDay()];
-      let date = d.getDate();
-      let month = months[d.getMonth()];
-      let year = d.getFullYear();
-      return `${day}, ${month}, ${date}, ${year}`;
-    }
-
+    const data = useWeather();
     return {
-      state,
-      weatherSearch,
-      getCurrentDate,
+      data,
     };
   },
 };
 </script>
 
 <style scoped>
-.weatherWrap {
+.container {
+  height: 100vh;
+  display: grid;
+  /* grid-template-columns: 50px 50px 50px 50px; */
   border: 1px solid black;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "SearchBox . . ."
+    ". currentDay currentDay ."
+    "fiveDay fiveDay fiveDay fiveDay";
+}
+.SearchBox {
+  border: 1px solid red;
+  place-self: center;
+}
+.currentDay {
+  border: 1px solid blue;
+  place-self: center;
 }
 </style>
