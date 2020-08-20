@@ -2,7 +2,7 @@ import {
     reactive,
 } from "vue";
 
-export const useWeather = () => {
+export const callWeather = () => {
     const state = reactive({
         apiKey: "c0d97a019ea859a14447316fcc3b3bce",
         currentDayUrlBase: "https://api.openweathermap.org/data/2.5/weather?q=",

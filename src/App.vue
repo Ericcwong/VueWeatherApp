@@ -15,7 +15,7 @@
 
 <script>
 import { reactive } from "vue";
-import { useWeather } from "./modules/weather";
+import { callWeather } from "./modules/weather";
 import CurrentDay from "./components/CurrentDay.vue";
 export default {
   name: "App",
@@ -24,7 +24,7 @@ export default {
   },
   setup() {
     // State variables that stores all the data
-    const data = useWeather();
+    const data = callWeather();
     return {
       data,
     };
