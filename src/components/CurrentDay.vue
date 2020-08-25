@@ -35,30 +35,15 @@ export default {
 };
 </script>
 <style scoped>
-/* .location {
-  grid-area: location;
-}
-.actualTemp {
-  grid-area: actualTemp;
-}
-.icon {
-  grid-area: icon;
-}
-.weather {
-  grid-area: weather;
-}
-.feelsLikeTemp {
-  grid-area: feelsLikeTemp;
-}
-.windSpeed {
-  grid-area: windSpeed;
-} */
 .container {
   width: 50vw;
-  /* display: grid; */
-  /* grid-template:
-    [row1-start] "location icon" [row1-end]
-    [row2-start] "actualTemp feelsLikeTemp" [row2-end]
-    [row3-start] "weather windSpeed" [row3-end]; */
+  display: grid;
+}
+.location h1 {
+  font-size: 3rem;
+  text-align: center;
+}
+.weatherWrap {
+  border: 1px solid black;
 }
 </style>

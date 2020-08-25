@@ -4,7 +4,13 @@
       <img alt="Vue logo" src="icons/01d.png" />
       <h2>Weather Application</h2>
       <br />
-      <input type="text" v-model="data.state.query" @keyup.enter="data.weatherSearch" class="field" />
+      <input
+        type="text"
+        v-model="data.state.query"
+        @keyup.enter="data.weatherSearch"
+        class="field"
+        placeholder="Search by city!"
+      />
     </div>
     <div class="currentDay">
       <CurrentDay :currentDayData="data.state.currentWeather" />
@@ -59,7 +65,6 @@ export default {
   font-size: 1.25rem;
 }
 .currentDay {
-  border: 1px solid black;
   place-self: center;
 }
 </style>
