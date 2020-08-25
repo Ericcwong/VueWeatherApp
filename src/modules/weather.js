@@ -74,7 +74,6 @@ export const callWeather = () => {
         let year = d.getFullYear();
         return `${day}, ${month}, ${date}, ${year}`;
     }
-
     return {
         state,
         weatherSearch,
