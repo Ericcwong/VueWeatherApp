@@ -1,16 +1,7 @@
 <template>
   <div class="container">
     <div class="SearchBox">
-      <img alt="Vue logo" src="icons/01d.png" />
-      <h2>Weather Application</h2>
-      <br />
-      <input
-        type="text"
-        v-model="data.state.query"
-        @keyup.enter="data.weatherSearch"
-        class="field"
-        placeholder="Search by city!"
-      />
+      <SearchBar/>
     </div>
     <div class="currentDay">
       <CurrentDay :currentDayData="data.state.currentWeather" />
@@ -20,17 +11,22 @@
 </template>
 
 <script>
-import { reactive } from "vue";
+import { reactive, watchEffect } from "vue";
 import { callWeather } from "./modules/weather";
+import SearchBar from "./components/SearchBar.vue"
 import CurrentDay from "./components/CurrentDay.vue";
 export default {
   name: "App",
   components: {
     CurrentDay,
+    SearchBar
   },
   setup() {
-    //Data is assigned all the information from callWeather function. Which holds all the data.
     const data = callWeather();
+    //Data is assigned all the information from callWeather function. Which holds all the data.
+    watchEffect(() => {
+      data
+    });
     return {
       data,
     };

@@ -14,6 +14,7 @@ export const callWeather = () => {
         currentDayUrlBase: "https://api.openweathermap.org/data/2.5/weather?q=",
         fiveDayUrlBase: "https://api.openweathermap.org/data/2.5/forecast?q=",
         query: "",
+        savedQuery: [],
         currentWeather: {},
         fiveDayWeather: {},
     });

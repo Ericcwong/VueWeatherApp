@@ -3,41 +3,41 @@
     <div class="container">
       <!-- WeatherWrap is to load conditionally, v-if is saying if currentDayData.weather.main is undefined dont render whats below -->
       <div class="weatherWrap" v-if="typeof currentDayData.main != 'undefined'">
-        <div class="locationBox">
           <div class="location">
             <h1>{{currentDayData.name}}</h1>
-          </div>
-          <!-- {{ currentDayData.weather}} -->
-          <!-- <div class="date">{{getDate()}}</div> -->
-        </div>
-        <div class="weatherBox">
-          <div class="actualTemp">
-            <h1>{{Math.round(currentDayData.main.temp)}}°F</h1>
           </div>
           <div class="icon">
             <img :src="`/icons/${currentDayData.weather[0].icon}.png`" alt="Weather Icon" />
           </div>
-          <div class="weather">Description: {{currentDayData.weather[0].description}}</div>
-          <div class="feelsLikeTemp">Feels Like:{{Math.round(currentDayData.main.feels_like)}}°F</div>
-          <div class="windspeed">Wind Speed: {{currentDayData.wind.speed}}MPH</div>
-        </div>
+          <div class="Temp">
+            <h1>Temperature: {{Math.round(currentDayData.main.temp)}}°F</h1>
+            <div class="feelsLikeTemp"><h3>Feels Like:{{Math.round(currentDayData.main.feels_like)}}°F</h3></div>
+          </div>
+         <div class="weatherDetails">
+          <div class="weather"><p>Description: {{currentDayData.weather[0].description}}</p></div>
+          <div class="windspeed"><p>Wind Speed: {{currentDayData.wind.speed}}MPH</p></div>
+         </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { watch } from "vue"
 export default {
   props: {
     currentDayData: Object,
+  }, 
+  setup(props) {
+    watch(() => {
+      console.log(props.currentDayData)
+    })
   },
-  setup() {},
 };
 </script>
 <style scoped>
 .container {
   width: 50vw;
-  display: grid;
 }
 .location h1 {
   font-size: 3rem;
@@ -45,5 +45,14 @@ export default {
 }
 .weatherWrap {
   border: 1px solid black;
+  background-color: #c4e3ed;
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+.Temp{
+  text-align: center;
+}
+.weatherDetails p{
+  font-size: 1.1rem;
 }
 </style>
