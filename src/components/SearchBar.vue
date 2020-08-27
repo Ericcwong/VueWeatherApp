@@ -1,32 +1,51 @@
 <template>
-<div>
+  <div>
     <img alt="Vue logo" src="icons/01d.png" />
-      <h2>Weather Application</h2>
-      <br />
-      <input
-        type="text"
-        v-model="data.state.query"
-        @keyup.enter="data.weatherSearch"
-        class="field"
-        placeholder="Search by city!"
-      />
-</div>
+    <h2>Weather Application</h2>
+    <br />
+    <!--       @keyup.enter="data.weatherSearch" -->
+    <input
+      type="text"
+      :value="location"
+      @keyup="handleChange"
+      class="field"
+      placeholder="Search by city!"
+    />
+    <input @click="handleSubmit" type="submit" value="Search" />
+  </div>
 </template>
 
 <script>
-import { reactive, watchEffect } from "vue"
-import { callWeather } from "../modules/weather"
+import { ref } from "vue";
+import { callWeather } from "../modules/weather";
 export default {
-    setup(){
-        const data = callWeather();
+  name: "SearchBar",
+  props: ["search"],
+  setup({ search }, { emit }) {
+    const location = ref(search);
 
     return {
-      data,
+      location,
+      handleSubmit(event) {
+        event.preventDefault();
+        emit("search", location.value);
+      },
+      handleChange(event) {
+        location.value = event.target.value;
+      },
     };
-    }
-}
+  },
+  // setup() {
+  //   const data = callWeather();
+  //   watchEffect(() => {
+  //     console.log(data.state.query);
+  //   });
+  //   return {
+  //     data,
+  //   };
+  // },
+};
 </script>
 
 <style>
-
 </style>

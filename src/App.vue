@@ -1,34 +1,65 @@
 <template>
   <div class="container">
     <div class="SearchBox">
-      <SearchBar/>
+      <SearchBar :search="state.search" @search="handleSearch" />
     </div>
     <div class="currentDay">
-      <CurrentDay :currentDayData="data.state.currentWeather" />
+      <CurrentDay :location="state.currentWeather" />
     </div>
     <div class="fiveDay"></div>
   </div>
 </template>
 
 <script>
-import { reactive, watchEffect } from "vue";
-import { callWeather } from "./modules/weather";
-import SearchBar from "./components/SearchBar.vue"
+import { reactive, watch } from "vue";
+// import { callWeather } from "./modules/weather";
+import SearchBar from "./components/SearchBar.vue";
 import CurrentDay from "./components/CurrentDay.vue";
 export default {
   name: "App",
   components: {
     CurrentDay,
-    SearchBar
+    SearchBar,
   },
   setup() {
-    const data = callWeather();
-    //Data is assigned all the information from callWeather function. Which holds all the data.
-    watchEffect(() => {
-      data
+    const state = reactive({
+      apiKey: "c0d97a019ea859a14447316fcc3b3bce",
+      currentDayUrlBase: "https://api.openweathermap.org/data/2.5/weather?q=",
+      fiveDayUrlBase: "https://api.openweathermap.org/data/2.5/forecast?q=",
+      search: "west jordan",
+      savedQuery: [],
+      currentWeather: {},
+      fiveDayWeather: {},
     });
+
+    watch(() => {
+      const currentWeatherAPIURL = `${state.currentDayUrlBase}${state.search}&units=imperial&appid=${state.apiKey}`;
+      fetch(currentWeatherAPIURL)
+        .then((response) => {
+          return response.json();
+          console.log(response);
+        })
+        .then((jsonResponse) => {
+          console.log(jsonResponse);
+          state.currentWeather = jsonResponse;
+        });
+      // fetch(`${state.fiveDayUrlBase}${state.query}&appid=${state.apiKey}`)
+      //   .then((res) => {
+      //     console.log(res);
+      //     return res.json();
+      //   })
+      //   .then((results) => {
+      //     state.fiveDayWeather = results;
+      // console.log(state.fiveDayWeather);
+      // });
+    });
+    //Data is assigned all the information from callWeather function. Which holds all the data.
+
     return {
-      data,
+      state,
+      handleSearch(searchTerm) {
+        state.search = searchTerm;
+      },
     };
   },
 };

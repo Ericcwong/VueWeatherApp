@@ -9,7 +9,7 @@ import {
 // }
 export const callWeather = () => {
     // State variables that stores all the data
-    const state = reactive({
+    let state = reactive({
         apiKey: "c0d97a019ea859a14447316fcc3b3bce",
         currentDayUrlBase: "https://api.openweathermap.org/data/2.5/weather?q=",
         fiveDayUrlBase: "https://api.openweathermap.org/data/2.5/forecast?q=",
@@ -20,28 +20,28 @@ export const callWeather = () => {
     });
     // API call
     function weatherSearch(e) {
-        if (e.key == "Enter") {
-            fetch(
-                    `${state.currentDayUrlBase}${state.query}&units=imperial&appid=${state.apiKey}`
-                )
-                .then((res) => {
-                    console.log(res);
-                    return res.json();
-                })
-                .then((results) => {
-                    state.currentWeather = results;
-                    console.log(state.currentWeather);
-                });
-            fetch(`${state.fiveDayUrlBase}${state.query}&appid=${state.apiKey}`)
-                .then((res) => {
-                    console.log(res);
-                    return res.json();
-                })
-                .then((results) => {
-                    state.fiveDayWeather = results;
-                    console.log(state.fiveDayWeather);
-                });
-        }
+        const currentWeatherAPIURL = `${state.currentDayUrlBase}${state.query}&units=imperial&appid=${state.apiKey}`
+        fetch(
+                currentWeatherAPIURL
+            )
+            .then((res) => {
+                // console.log(res);
+                return res.json();
+            })
+            .then((results) => {
+                state.currentWeather = results;
+                console.log(state.currentWeather);
+            });
+        fetch(`${state.fiveDayUrlBase}${state.query}&appid=${state.apiKey}`)
+            .then((res) => {
+                console.log(res);
+                return res.json();
+            })
+            .then((results) => {
+                state.fiveDayWeather = results;
+                // console.log(state.fiveDayWeather);
+            });
+
     }
     //Setting current dates to each day
     function getCurrentDate() {
