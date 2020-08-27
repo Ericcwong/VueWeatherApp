@@ -7,7 +7,7 @@
       <CurrentDay :location="state.currentWeather" />
     </div>
     <div class="fiveDay">
-      <FiveDay :locations="state.fiveDayWeather.list" />
+      <FiveDay :locations="state.fiveDayWeather" />
     </div>
   </div>
 </template>
@@ -45,7 +45,7 @@ export default {
           // console.log(response);
         })
         .then((results) => {
-          // console.log(jsonResponse);
+          console.log(results);
           state.currentWeather = results;
         });
       fetch(fiveDayWeatherAPIURL)
@@ -55,7 +55,7 @@ export default {
         })
         .then((results) => {
           state.fiveDayWeather = results;
-          console.log(state.fiveDayWeather);
+          console.log(state.fiveDayWeather.list);
         });
     });
     //Data is assigned all the information from callWeather function. Which holds all the data.

@@ -23,6 +23,9 @@
           <div class="windspeed">
             <p>Wind Speed: {{location.wind.speed}}MPH</p>
           </div>
+          <div class="maxMin">
+            <p>Max: {{location.main.temp_max}}°F | Min: {{location.main.temp_min}}°F</p>
+          </div>
         </div>
       </div>
     </div>
