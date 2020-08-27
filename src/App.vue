@@ -6,7 +6,9 @@
     <div class="currentDay">
       <CurrentDay :location="state.currentWeather" />
     </div>
-    <div class="fiveDay"></div>
+    <div class="fiveDay">
+      <FiveDay :locations="state.fiveDayWeather.list" />
+    </div>
   </div>
 </template>
 
@@ -15,11 +17,13 @@ import { reactive, watchEffect } from "vue";
 // import { callWeather } from "./modules/weather";
 import SearchBar from "./components/SearchBar.vue";
 import CurrentDay from "./components/CurrentDay.vue";
+import FiveDay from "./components/FiveDay.vue";
 export default {
   name: "App",
   components: {
     CurrentDay,
     SearchBar,
+    FiveDay,
   },
   setup() {
     const state = reactive({
@@ -34,7 +38,7 @@ export default {
 
     watchEffect(() => {
       const currentWeatherAPIURL = `${state.currentDayUrlBase}${state.search}&units=imperial&appid=${state.apiKey}`;
-      const fiveDayWeatherAPIURL = `${state.fiveDayUrlBase}${state.search}&appid=${state.apiKey}`;
+      const fiveDayWeatherAPIURL = `${state.fiveDayUrlBase}${state.search}&units=imperial&appid=${state.apiKey}`;
       fetch(currentWeatherAPIURL)
         .then((response) => {
           return response.json();
@@ -67,6 +71,18 @@ export default {
 </script>
 
 <style scoped>
+.currentDay {
+  grid-area: currentDay;
+  place-self: center;
+}
+.SearchBox {
+  grid-area: SearchBox;
+  place-self: center;
+}
+.fiveDay {
+  grid-area: fiveDay;
+  place-self: center;
+}
 .container {
   background-color: lightblue;
   height: 100vh;
@@ -74,14 +90,8 @@ export default {
   border: 1px solid black;
   grid-template-rows: auto;
   grid-template-areas:
+    "SearchBox . currentDay ."
     "SearchBox . . ."
-    ". currentDay currentDay ."
-    "fiveDay fiveDay fiveDay fiveDay";
-}
-.SearchBox {
-  place-self: center;
-}
-.currentDay {
-  place-self: center;
+    "SearchBox . fiveDay .";
 }
 </style>
