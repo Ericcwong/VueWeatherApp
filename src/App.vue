@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { reactive, watch } from "vue";
+import { reactive, watchEffect } from "vue";
 // import { callWeather } from "./modules/weather";
 import SearchBar from "./components/SearchBar.vue";
 import CurrentDay from "./components/CurrentDay.vue";
@@ -32,26 +32,27 @@ export default {
       fiveDayWeather: {},
     });
 
-    watch(() => {
+    watchEffect(() => {
       const currentWeatherAPIURL = `${state.currentDayUrlBase}${state.search}&units=imperial&appid=${state.apiKey}`;
+      const fiveDayWeatherAPIURL = `${state.fiveDayUrlBase}${state.search}&appid=${state.apiKey}`;
       fetch(currentWeatherAPIURL)
         .then((response) => {
           return response.json();
-          console.log(response);
+          // console.log(response);
         })
-        .then((jsonResponse) => {
-          console.log(jsonResponse);
-          state.currentWeather = jsonResponse;
+        .then((results) => {
+          // console.log(jsonResponse);
+          state.currentWeather = results;
         });
-      // fetch(`${state.fiveDayUrlBase}${state.query}&appid=${state.apiKey}`)
-      //   .then((res) => {
-      //     console.log(res);
-      //     return res.json();
-      //   })
-      //   .then((results) => {
-      //     state.fiveDayWeather = results;
-      // console.log(state.fiveDayWeather);
-      // });
+      fetch(fiveDayWeatherAPIURL)
+        .then((res) => {
+          console.log(res);
+          return res.json();
+        })
+        .then((results) => {
+          state.fiveDayWeather = results;
+          console.log(state.fiveDayWeather);
+        });
     });
     //Data is assigned all the information from callWeather function. Which holds all the data.
 
@@ -79,17 +80,6 @@ export default {
 }
 .SearchBox {
   place-self: center;
-}
-.SearchBox img {
-  width: 100%;
-}
-.SearchBox h2 {
-  text-align: center;
-}
-.SearchBox input {
-  width: 100%;
-  height: 40px;
-  font-size: 1.25rem;
 }
 .currentDay {
   place-self: center;

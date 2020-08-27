@@ -9,15 +9,15 @@ import {
 // }
 export const callWeather = () => {
     // State variables that stores all the data
-    let state = reactive({
-        apiKey: "c0d97a019ea859a14447316fcc3b3bce",
-        currentDayUrlBase: "https://api.openweathermap.org/data/2.5/weather?q=",
-        fiveDayUrlBase: "https://api.openweathermap.org/data/2.5/forecast?q=",
-        query: "",
-        savedQuery: [],
-        currentWeather: {},
-        fiveDayWeather: {},
-    });
+    // let state = reactive({
+    //     apiKey: "c0d97a019ea859a14447316fcc3b3bce",
+    //     currentDayUrlBase: "https://api.openweathermap.org/data/2.5/weather?q=",
+    //     fiveDayUrlBase: "https://api.openweathermap.org/data/2.5/forecast?q=",
+    //     query: "",
+    //     savedQuery: [],
+    //     currentWeather: {},
+    //     fiveDayWeather: {},
+    // });
     // API call
     function weatherSearch(e) {
         const currentWeatherAPIURL = `${state.currentDayUrlBase}${state.query}&units=imperial&appid=${state.apiKey}`

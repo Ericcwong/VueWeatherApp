@@ -8,10 +8,11 @@
       type="text"
       :value="location"
       @keyup="handleChange"
+      @keydown.enter="handleSubmit"
       class="field"
       placeholder="Search by city!"
     />
-    <input @click="handleSubmit" type="submit" value="Search" />
+    <input class="submitButton" @click="handleSubmit" type="submit" value="Search" />
   </div>
 </template>
 
@@ -35,17 +36,23 @@ export default {
       },
     };
   },
-  // setup() {
-  //   const data = callWeather();
-  //   watchEffect(() => {
-  //     console.log(data.state.query);
-  //   });
-  //   return {
-  //     data,
-  //   };
-  // },
 };
 </script>
 
-<style>
+<style scoped>
+img {
+  width: 100%;
+}
+h2 {
+  text-align: center;
+}
+.field {
+  width: 70%;
+  height: 40px;
+  font-size: 1.25rem;
+}
+.submitButton {
+  height: 46px;
+  font-size: 1.25rem;
+}
 </style>
