@@ -90,8 +90,8 @@ export default {
   border: 1px solid black;
   grid-template-rows: auto;
   grid-template-areas:
-    "SearchBox . currentDay ."
-    "SearchBox . . ."
-    "SearchBox . fiveDay .";
+    "SearchBox currentDay currentDay ."
+    "fiveDay fiveDay fiveDay ."
+    " fiveDay fiveDay fiveDay .";
 }
 </style>
